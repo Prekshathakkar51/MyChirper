@@ -3,7 +3,7 @@
 
     <div>
         <h1>This is MyChirperApp</h1>
-        <p>This is text</p>
+        <p>This is text and it is live on internet now!</p>
     </div>
 </x-layout>
 
