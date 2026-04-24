@@ -4,6 +4,14 @@
     <div>
         <h1>This is MyChirperApp</h1>
         <p>This is text and it is live on internet now!</p>
+        @forelse($chirps as $chirp)
+        <div>{{ $chirp->user ? $chirp->user->name : "Anonymous" }}</div>
+        <div>{{ $chirp->message }}</div>
+        <div>{{ $chirp->created_at->diffForHumans() }}</div>
+
+        @empty
+        <p>No chirps yet, Be the first to chirp</p>
+        @endforelse
     </div>
 </x-layout>
 
