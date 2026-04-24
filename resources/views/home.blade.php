@@ -1,16 +1,39 @@
 <x-layout>
-    <x-slot:title>Welcome Page</x-slot:title>
+    <x-slot:title>Home Feed</x-slot:title>
 
     <div>
-        <h1>This is MyChirperApp</h1>
-        <p>This is text and it is live on internet now!</p>
+        <h1>Latest Chirps</h1>
+        <div>
+            <form method="POST" action="/chirps">
+                <div>
+                    @csrf
+                    <textarea class="@error('message') textarea-error @enderror" name="message" placeholder="What's on your mind?" rows="4" maxlength="255"
+                        required>{{ old('message') }}</textarea>
+
+                    @error('message')
+                        <div><span>{{ $message }}</span></div>
+
+                    @enderror
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Submit new Chirp</button>
+        </form>
+
+
+    </div>
+    </div>
+
+    <div>
+        {{-- <h1>This is MyChirperApp</h1>
+        <p>This is text and it is live on internet now!</p> --}}
         @forelse($chirps as $chirp)
-        <div>{{ $chirp->user ? $chirp->user->name : "Anonymous" }}</div>
-        <div>{{ $chirp->message }}</div>
-        <div>{{ $chirp->created_at->diffForHumans() }}</div>
+            <x-chirp :chirp="$chirp" />
+            {{-- <div>{{ $chirp->user ? $chirp->user->name : "Anonymous" }}</div>
+            <div>{{ $chirp->message }}</div>
+            <div>{{ $chirp->created_at->diffForHumans() }}</div> --}}
 
         @empty
-        <p>No chirps yet, Be the first to chirp</p>
+            <p>No chirps yet, Be the first to chirp</p>
         @endforelse
     </div>
 </x-layout>
@@ -18,7 +41,8 @@
 
 
 
-{{-- <!DOCTYPE html>
+{{--
+<!DOCTYPE html>
 <html lang="en" data-theme="lofi">
 
 <head>
